@@ -1,0 +1,34 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 8", "ie >= 11"]
+      }
+    }],
+    "flow",
+    "react"
+  ],
+  "plugins": [
+    "add-module-exports",
+    ["react-css-modules", {
+      "filetypes": {
+        ".scss": "postcss-scss"
+      },
+      "generateScopedName": "[name]_[local]_[hash:base64:4]"
+    }]
+  ],
+  "env": {
+    "production": {
+      "presets": ["react-optimize"],
+      "plugins": ["babel-plugin-dev-expression", "babel-plugin-transform-runtime"]
+    },
+    "development": {
+      "presets": ["react-hmre"],
+      "plugins": [
+        "transform-class-properties",
+        "transform-es2015-classes",
+        "react-hot-loader/babel"
+      ]
+    }
+  }
+}
