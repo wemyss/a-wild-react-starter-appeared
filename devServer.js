@@ -1,31 +1,41 @@
 // Dev server just for webpack that could possibly be changed to be a production server.
-import path from 'path'
 import express from 'express'
-import webpack from 'webpack'
-
-const config = require('./webpack.config.dev')
+import path from 'path'
 
 const app = express()
-const compiler = webpack(config)
+const port = process.env.npm_config_port || 3000
+const root = path.join(__dirname, 'dist')
 
-const host = 'http://localhost'
-const port = process.env.npm_config_port ? process.env.npm_config_port : 3000
+if (process.env.NODE_ENV === 'development') {
+  /* eslint-disable global-require */
+  const webpack = require('webpack')
+  const webpackConfig = require('./webpack.config.dev')
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath,
-}))
+  const compiler = webpack(webpackConfig)
 
-app.use(require('webpack-hot-middleware')(compiler))
+  app.use(require('webpack-dev-middleware')(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    hot: true,
+    noInfo: true,
+    stats: 'minimal',
+  }))
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'))
+  app.use(require('webpack-hot-middleware')(compiler))
+  /* eslint-enable global-require */
+}
+
+app.use(express.static(root))
+
+app.get('/*', (req, res) => {
+  res.sendFile('index.html', {
+    root,
+  })
 })
 
-app.listen(port, 'localhost', (err) => {
+app.listen(port, (err) => {
   if (err) {
     console.log(err)
     return
   }
-  console.info('==> Listening on port %s. Open up %s:%s/ in your browser.', port, host, port)
+  console.info('==> Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port)
 })

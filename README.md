@@ -43,7 +43,7 @@ A simple react setup with a few extra tools I enjoy using. Code structure is pre
 
 1. Clone, fork or copy repo line by line.
 2. Install dependencies with `yarn` or `npm`.
-3. Run dev server with `npm run dev`
+3. Run dev server with `yarn run dev`
 4. Modify shit and watch magic happen
 
 ***

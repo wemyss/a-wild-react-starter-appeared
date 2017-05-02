@@ -1,7 +1,12 @@
 // @flow
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
 
-export default class Counter extends Component {
+export default class Counter extends PureComponent {
+  props: {
+    counter: number,
+    actions: Object,
+  }
+
   handleIncrement() {
     this.props.actions.increment()
   }
@@ -23,9 +28,4 @@ export default class Counter extends Component {
       </div>
     )
   }
-}
-
-Counter.propTypes = {
-  counter: PropTypes.number.isRequired,
-  actions: PropTypes.object.isRequired,
 }

@@ -1,6 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+// @flow
+import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+
 import * as CounterActions from '../actions/CounterActions'
 import Counter from '../components/Counter'
 import Footer from '../components/Footer'
@@ -13,6 +17,10 @@ import MovieCard from '../components/MovieCard/MovieCard'
  * component to make the Redux store available to the rest of the app.
  */
 class App extends Component {
+  props: {
+    counter: number,
+    actions: Object,
+  }
   render() {
     const { counter, actions } = this.props
     return (
@@ -25,15 +33,11 @@ class App extends Component {
           image='http://www.impawards.com/2015/posters/martian_ver6.jpg'
           rating={9.8}
         />
+        <Link to='/xxx/x'>GO TO NOWHERE</Link>
         <Footer />
       </div>
     )
   }
-}
-
-App.propTypes = {
-  counter: PropTypes.number.isRequired,
-  actions: PropTypes.object.isRequired,
 }
 
 /**

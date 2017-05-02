@@ -1,7 +1,6 @@
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import DashboardPlugin from 'webpack-dashboard/plugin'
 
 import baseConfig from './webpack.config.base'
 
@@ -110,7 +109,6 @@ export default merge(baseConfig, {
      */
     new webpack.NoEmitOnErrorsPlugin(),
 
-    new DashboardPlugin(),
     /**
      * This is a webpack plugin that simplifies creation of HTML files to serve your
      * webpack bundles. This is especially useful for webpack bundles that
